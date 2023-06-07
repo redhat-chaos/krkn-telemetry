@@ -27,4 +27,5 @@ def telemetry():
             return Response(f"[bad request]: {str(e)}", status=400)
     else:
         return Response("content type not supported", status=415)
+    
 
