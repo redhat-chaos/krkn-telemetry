@@ -22,10 +22,10 @@ def telemetry():
             file_name = f"{uuid_str}.json"
             s_three = boto3.resource("s3")
             s_three.Bucket(bucket_name).put_object(Key=file_name, Body=json.dumps(telemetry_data.__dict__, indent=4))
-            return Response(f"record {uuid_str} created")
+            return Response(f"record {uuid_str} created test")
         except Exception as e:
             return Response(f"[bad request]: {str(e)}", status=400)
     else:
         return Response("content type not supported", status=415)
-    
+
 
