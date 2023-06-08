@@ -2,8 +2,8 @@
     "production": {
         "app_function": "app.app",
         "aws_region": "us-west-2",
-        "project_name": "krkn-telemetry-test",
+        "project_name": "krkn-telemetry",
         "runtime": "python3.9",
-        "s3_bucket": "krkn-telemetry-lambda-bucket-148830"
+        "s3_bucket": "krkn-telemetry-lambda-bucket"
     }
 }
