@@ -21,7 +21,10 @@ def telemetry():
             uuid_str = str(uuid.uuid4())
             file_name = f"{uuid_str}.json"
             s_three = boto3.resource("s3")
-            s_three.Bucket(bucket_name).put_object(Key=file_name, Body=json.dumps(telemetry_data.__dict__, indent=4))
+            telemetry_str = json.dumps(
+                telemetry_data, default=lambda o: o.__dict__, indent=4
+            )
+            s_three.Bucket(bucket_name).put_object(Key=file_name, Body=telemetry_str)
             return Response(f"record {uuid_str} created test")
         except Exception as e:
             return Response(f"[bad request]: {str(e)}", status=400)
