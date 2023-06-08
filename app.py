@@ -3,7 +3,7 @@ import os
 import boto3
 import json
 import uuid
-from krkn_lib_kubernetes import Telemetry
+from krkn_lib_kubernetes import ChaosRunTelemetry
 from flask import Flask, Response, request
 from types import SimpleNamespace
 app = Flask(__name__)
@@ -17,7 +17,7 @@ def telemetry():
             bucket_name = os.getenv("BUCKET_NAME")
             if bucket_name is None:
                 return Response("BUCKET_NAME env variable not set", status=500)
-            telemetry_data = Telemetry(request.json)
+            telemetry_data = ChaosRunTelemetry(request.json)
             uuid_str = str(uuid.uuid4())
             file_name = f"{uuid_str}.json"
             s_three = boto3.resource("s3")
