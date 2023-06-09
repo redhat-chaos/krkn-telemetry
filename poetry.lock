@@ -760,7 +760,7 @@ sphinxnotes-markdown-builder = "^0.5.6"
 type = "git"
 url = "https://github.com/redhat-chaos/krkn-lib-kubernetes.git"
 reference = "krkn_telemetry"
-resolved_reference = "3d92a53c7e2778b446cb4df8b8a913578ef04c43"
+resolved_reference = "ae54472398fe5a12573cb29d30346d6743768e3e"
 
 [[package]]
 name = "kubernetes"
