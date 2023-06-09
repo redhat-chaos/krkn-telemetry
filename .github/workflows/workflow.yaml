@@ -27,4 +27,4 @@ jobs:
       run: poetry install --no-interaction
 
     - name: Zappa deployments
-      run: poetry run zappa update production
+      run: poetry run zappa update -q production
