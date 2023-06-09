@@ -39,10 +39,11 @@ def telemetry():
 def validate_data_model(model:  ChaosRunTelemetry) -> Optional[Response]:
     for scenario in model.scenarios:
         for attr, _ in scenario.__dict__.items():
-            if attr != "parameters":
-                if getattr(scenario, attr) is None:
-                    return Response(f"[bad request]: {attr} must be set")
+            if attr != "parametersBase64":
+                if getattr(scenario, attr) is None or getattr(scenario, attr) == "" :
+                    return Response(f"[bad request]: {attr} is null or empty")
     return None
+
 
 
 
