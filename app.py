@@ -43,7 +43,7 @@ def validate_data_model(model:  ChaosRunTelemetry) -> Optional[Response]:
                 if getattr(scenario, attr) is None:
                     return Response(f"[bad request]: {attr} must be set")
             else:
-                if getattr(scenario, attr) is not None or getattr(scenario, attr) != "":
+                if getattr(scenario, attr) is not None and getattr(scenario, attr) != "":
                     return Response("[bad request]: parameters cannot be set")
     return None
 
