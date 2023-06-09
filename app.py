@@ -18,6 +18,10 @@ def telemetry():
             if bucket_name is None:
                 return Response("BUCKET_NAME env variable not set", status=500)
             telemetry_data = ChaosRunTelemetry(request.json)
+            validation_response = validate_data_model(telemetry_data)
+            # if validator returns means that there are validation errors
+            if validation_response is not None:
+                return validation_response
             uuid_str = str(uuid.uuid4())
             file_name = f"{uuid_str}.json"
             s_three = boto3.resource("s3")
@@ -30,5 +34,17 @@ def telemetry():
             return Response(f"[bad request]: {str(e)}", status=400)
     else:
         return Response("content type not supported", status=415)
+
+
+def validate_data_model(model:  ChaosRunTelemetry) -> Response :
+    for scenario in model.scenarios:
+        for attr, _ in scenario.__dict__.items():
+            if attr != "parameters":
+                if getattr(scenario, attr) is None:
+                    return Response(f"[bad request]: {attr} must be set")
+            else:
+                if getattr(scenario, attr) is not None or getattr(scenario, attr) != "":
+                    return Response("[bad request]: parameters cannot be set")
+
 
 
