@@ -5,7 +5,7 @@ import json
 import uuid
 from krkn_lib_kubernetes import ChaosRunTelemetry
 from flask import Flask, Response, request
-from types import SimpleNamespace
+from typing import Optional
 app = Flask(__name__)
 
 
@@ -36,7 +36,7 @@ def telemetry():
         return Response("content type not supported", status=415)
 
 
-def validate_data_model(model:  ChaosRunTelemetry) -> Response :
+def validate_data_model(model:  ChaosRunTelemetry) -> Optional[Response]:
     for scenario in model.scenarios:
         for attr, _ in scenario.__dict__.items():
             if attr != "parameters":
@@ -45,6 +45,6 @@ def validate_data_model(model:  ChaosRunTelemetry) -> Response :
             else:
                 if getattr(scenario, attr) is not None or getattr(scenario, attr) != "":
                     return Response("[bad request]: parameters cannot be set")
-
+    return None
 
 
